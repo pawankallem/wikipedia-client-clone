@@ -1,5 +1,5 @@
-import React from 'react';
-import wikiLogo from "../../assets/wikiLogo.png"
+import React from "react";
+import wikiLogo from "../../assets/wikiLogo.png";
 
 function Header() {
   return (
