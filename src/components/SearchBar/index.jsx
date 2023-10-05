@@ -10,7 +10,7 @@ function SearchBar({ onSearch }) {
 
   const handleSuggetions = async (text) => {
     try {
-      let response = await axios.get(`/suggestion/${text}`);
+      let response = await axios.get(`https://wiki-server-clone.onrender.com/suggestion/${text}`);
       console.log("res: ", response.data);
       if (response.status === 200) setSuggetionsData(response.data);
     } catch (error) {

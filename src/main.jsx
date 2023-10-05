@@ -5,8 +5,8 @@ import "./index.css";
 import axios from "axios";
 
 // Local: 'http://localhost:5000
-// Prod: 'https://wiki-server-clone.onrender.com
-axios.defaults.baseURL = "https://wiki-server-clone.onrender.com";
+// Prod: 'hhttps://wiki-server-clone.onrender.com
+// axios.defaults.baseURL = "https://wiki-server-clone.onrender.com";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
