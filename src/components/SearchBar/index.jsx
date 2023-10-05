@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import SearchResults from "../SearchResults";
 import axios from "axios";
+import "./style.css";
 
 function SearchBar({ onSearch }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -9,8 +10,8 @@ function SearchBar({ onSearch }) {
 
   const handleSuggetions = async (text) => {
     try {
-      // let response = await axios.get(`http://127.0.0.1:5000/suggestion/${text}`);
-      let response = await axios.get(`https://wiki-server-clone.onrender.com/suggestion/${text}`);
+      let response = await axios.get(`/suggestion/${text}`);
+      console.log("res: ", response.data);
       if (response.status === 200) setSuggetionsData(response.data);
     } catch (error) {
       console.log("error: ", error);
@@ -27,27 +28,55 @@ function SearchBar({ onSearch }) {
     }, 500);
   };
 
-  const handleSearch = () => {
-    onSearch(searchTerm);
+  const handleSearch = (name) => {
+    let text = searchTerm;
+    if (name) {
+      const cardData = suggetionsData.find((e) => e.name === name);
+      text = cardData.name;
+      setSuggetionsData([]);
+    }
+    onSearch(text);
+    setSearchTerm("");
   };
 
   return (
     <div className="search-container">
       <div className="search-bar">
-        <input
-          type="text"
-          placeholder="Search Wikipedia"
-          value={searchTerm}
-          // onChange={(e) => setSearchTerm(e.target.value)}
-          onChange={handleInputChange}
-        />
-        <button onClick={handleSearch}>Search</button>
-      </div>
-      {suggetionsData && (
-        <div className="suggetion-container">
-          <SearchResults results={suggetionsData} />
+        <div className="search-bar-popup-container">
+          <input
+            type="text"
+            placeholder="Search Wikipedia"
+            value={searchTerm}
+            onChange={handleInputChange}
+          />
+          {suggetionsData.length > 0 && (
+            <div className="popup">
+              <ul className="suggestions-list">
+                {suggetionsData.map((suggestion, index) => (
+                  <li
+                    key={index}
+                    className="suggestion-item"
+                    onClick={() => handleSearch(suggestion.name)}
+                  >
+                    <img
+                      className="suggestion-image"
+                      src={suggestion.image}
+                      alt={suggestion.name}
+                    />
+                    <div className="suggestion-details">
+                      <p className="suggestion-title">{suggestion.name}</p>
+                      <p className="suggestion-description">
+                        {suggestion.description}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
-      )}
+        <button onClick={() => handleSearch("")}>Search</button>
+      </div>
     </div>
   );
 }

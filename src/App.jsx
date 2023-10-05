@@ -11,10 +11,7 @@ function App() {
 
   const handleSearch = async (searchTerm) => {
     try {
-      // let response = await axios.get(
-      //   `http://127.0.0.1:5000/scrape/${searchTerm}`
-      // );
-      let response = await axios.get(`https://wiki-server-clone.onrender.com/scrape/${(searchTerm)}`);
+      let response = await axios.get(`/scrape/${searchTerm}`);
       setSearchResults(response.data);
     } catch (error) {
       console.log("error : ", error);

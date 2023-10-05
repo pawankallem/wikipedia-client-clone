@@ -5,6 +5,7 @@ function Header() {
   return (
     <header className="header">
       <img src={wikiLogo} alt="Wikipedia" className="wikipedia-logo" />
+      <h2>Wikipedia</h2>
     </header>
   );
 }
