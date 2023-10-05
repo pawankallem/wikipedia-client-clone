@@ -25,7 +25,7 @@ function SearchBar({ onSearch }) {
     timeoutRef.current = setTimeout(() => {
       console.log(`API call with query: ${value} and ${searchTerm}`);
       value && handleSuggetions(value);
-    }, 500);
+    }, 2000);
   };
 
   const handleSearch = (name) => {
